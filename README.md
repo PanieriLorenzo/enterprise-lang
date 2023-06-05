@@ -22,22 +22,39 @@ Currently I'm collecting ideas for the worlds most enterprise language. Suggesti
 - Everything uses `Kebab-Camel-Case` because why not.
 - Names must always be fully qualified
 - Packages must be imported one layer at a time, yet, they must still be fully qualified
+- Everything must be in a namespace
+- Everything attribute and method static by default, unless you specify with `Non-Static`
+- Comments that aren't doc comments must start with `[No-Doc]`
 
 ## Examples
 
 Hello world
-```java
-// These are mandatory!
+```C#
+//[No-Doc] These are mandatory!
 Package com.example
 Source-Code-File-Encoding-Format "UTF-8"
 Package-Author-Full-Name "Jonh"
 
-Use-Package org;
-Use-Package org::enterprise-lang;
-Use-Package org::enterprise-lang::std;
+Use-Package org.enterprise-lang;
+Use-Package org.enterprise-lang::String;
+Use-Package org.enterprise-lang::String::String;
+Use-Package org.enterprise-lang::IO;
+Use-Package org.enterprise-lang::IO::Printer;
+Use-Package org.enterprise-lang::Runtime;
+Use-Package org.enterprise-lang::Runtime::Main;
 
-
-Private Class com::example::Main 
-
-
+Private Namespace com::example::Main {
+  Private Class com.example::Main::Main Inherits org.enterprise-lang::Runtime::Main {
+    //[No-Doc] the initializer used by the default factory 
+    Private Override Non-Static Default-Factory-Initializer () {}
+    Private Override Non-Static Method Void com.example::Main::Main::Main () {
+      org.enterprise-lang::IO::Printer printer = Call-Method (
+        Get-Method "Default-Factory-Initializer" (
+          Get-Default-Factory org-enterprise-lang::IO::Printer
+        )
+      ) ();
+      org.enterpriese-lang::String
+    }
+  }
+}
 ```
